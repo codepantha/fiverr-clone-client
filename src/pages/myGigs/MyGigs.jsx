@@ -1,3 +1,5 @@
+import React from 'react';
+
 import './MyGigs.scss';
 
 const MyGigs = () => {
