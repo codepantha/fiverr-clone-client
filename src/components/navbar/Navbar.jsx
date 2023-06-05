@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import './Navbar.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import images from '../../constants/images';
 
 const Navbar = () => {
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const checkIsActive = () => {
@@ -22,6 +22,8 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', checkIsActive);
   }, []);
 
+  const { pathname } = useLocation();
+
   const currentUser = {
     id: 1,
     username: 'John Doe',
@@ -30,12 +32,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={isActive ? 'navbar active' : 'navbar'}>
+    <nav className={isActive || pathname !== '/' ? 'navbar active' : 'navbar'}>
       <div className="container">
         <div className="logo">
-          {/* <Link to="/"> */}
-          <span className="text">Fiverr</span>
-          {/* </Link> */}
+          <Link className="link" to="/">
+            <span className="text">Fiverr</span>
+          </Link>
           <span className="dot">.</span>
         </div>
 
@@ -58,13 +60,33 @@ const Navbar = () => {
                 <ul className="options">
                   {currentUser?.isSeller && (
                     <>
-                      <li>Gigs</li>
-                      <li>Add New Gig</li>
+                      <li>
+                        <Link className="link" to="/mygigs">
+                          Gigs
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="link" to="/add">
+                          Add New Gig
+                        </Link>
+                      </li>
                     </>
                   )}
-                  <li>Orders</li>
-                  <li>Messages</li>
-                  <li>Logout</li>
+                  <li>
+                    <Link className="link" to="/orders">
+                      Orders
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="link" to="/messages">
+                      Messages
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="link" to="/">
+                      Logout
+                    </Link>
+                  </li>
                 </ul>
               )}
             </li>
@@ -72,14 +94,65 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {isActive && (
+      {(isActive || pathname !== '/') && (
         <>
           <hr />
+          <ul className="container menu">
+            <li className="list-none">
+              <Link className="link menuLink" to="/">
+                Graphics & Design
+              </Link>
+            </li>
 
-          <div className="container menu">
-            <span>Test</span>
-            <span>Test2</span>
-          </div>
+            <li className="list-none">
+              <Link className="link menuLink" to="/">
+                Video & Animation
+              </Link>
+            </li>
+
+            <li className="list-none">
+              <Link className="link menuLink" to="/">
+                Writing & Translation
+              </Link>
+            </li>
+
+            <li className="list-none">
+              <Link className="link menuLink" to="/">
+                AI Services
+              </Link>
+            </li>
+
+            <li className="list-none">
+              <Link className="link menuLink" to="/">
+                Digital Marketing
+              </Link>
+            </li>
+
+            <li className="list-none">
+              <Link className="link menuLink" to="/">
+                Music & Audio
+              </Link>
+            </li>
+
+            <li className="list-none">
+              <Link className="link menuLink" to="/">
+                Programming & Tech
+              </Link>
+            </li>
+
+            <li className="list-none">
+              <Link className="link menuLink" to="/">
+                Business
+              </Link>
+            </li>
+
+            <li className="list-none">
+              <Link className="link menuLink" to="/">
+                Lifestyle
+              </Link>
+            </li>
+          </ul>
+          <hr />
         </>
       )}
     </nav>
