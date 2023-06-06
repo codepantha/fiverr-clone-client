@@ -20,6 +20,11 @@ import recycle from '../assets/img/recycle.png';
 import search from '../assets/img/search.png';
 import star from '../assets/img/star.png';
 import twitter from '../assets/img/twitter.png';
+import fb from '../assets/img/fb.png';
+import google from '../assets/img/google.png';
+import netflix from '../assets/img/netflix.png';
+import pandg from '../assets/img/p&g.png';
+import paypal from '../assets/img/paypal.png';
 
 const images = {
   avatar,
@@ -43,7 +48,12 @@ const images = {
   recycle,
   search,
   star,
-  twitter
+  twitter,
+  fb,
+  google,
+  netflix,
+  pandg,
+  paypal
 };
 
 export default images;
