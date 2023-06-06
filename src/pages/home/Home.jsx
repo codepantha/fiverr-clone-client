@@ -60,6 +60,49 @@ const Home = () => {
           </section>
         </div>
       </section>
+
+      <section className="features dark">
+        <div className="container">
+          <section className="item">
+            <article>
+              <h2>
+                Fiverr <em>Business</em>
+              </h2>
+              <h3>
+                A business solution designed for <em>teams</em>
+              </h3>
+              <p>
+                Upgrade to a curated experience packed with tools and benefits,
+                dedicated to businesses
+              </p>
+            </article>
+
+            <figure className="title">
+              <img src={images.check} alt="" />
+              <figcaption>The best for every budget</figcaption>
+            </figure>
+
+            <figure className="title">
+              <img src={images.check} alt="" />
+              <figcaption>The best for every budget</figcaption>
+            </figure>
+
+            <figure className="title">
+              <img src={images.check} alt="" />
+              <figcaption>The best for every budget</figcaption>
+            </figure>
+
+            <button>Explore Fiverr Business</button>
+          </section>
+
+          <section className="item">
+            <img
+              src="https://fiverr-res.cloudinary.com/q_auto,f_auto,w_870,dpr_2.0/v1/attachments/generic_asset/asset/d9c17ceebda44764b591a8074a898e63-1599597624768/business-desktop-870-x2.png"
+              alt=""
+            />
+          </section>
+        </div>
+      </section>
     </div>
   );
 };
