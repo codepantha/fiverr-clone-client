@@ -5,7 +5,7 @@ import './CatCard.scss'
 
 const CatCard = ({ item }) => {
   return (
-    <Link>
+    <Link to="/gigs?category=design">
       <article className="catCard">
         <figure>
           <img src={item.img} alt={item.title} />
