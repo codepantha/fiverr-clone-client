@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import './Navbar.scss';
-import { Link, useLocation } from 'react-router-dom';
 import images from '../../constants/images';
+import axiosRequest from '../../utils/axiosRequest';
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const checkIsActive = () => {
     window.scrollY > 0 ? setIsActive(true) : setIsActive(false);
@@ -22,14 +25,19 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', checkIsActive);
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await axiosRequest.delete('/auth/logout');
+      localStorage.setItem('currentUser', null);
+      navigate('/');
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const { pathname } = useLocation();
 
-  const currentUser = {
-    id: 1,
-    username: 'John Doe',
-    isSeller: true,
-    imgSrc: ''
-  };
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   return (
     <nav className={isActive || pathname !== '/' ? 'navbar active' : 'navbar'}>
@@ -83,7 +91,7 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link className="link" to="/">
+                    <Link className="link" onClick={handleLogout}>
                       Logout
                     </Link>
                   </li>
