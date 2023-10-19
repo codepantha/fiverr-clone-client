@@ -8,7 +8,7 @@ const GigCard = ({ item }) => {
   return (
     <Link to="/gigs/123" className="link">
       <div className="gigCard">
-        <img src={item.img} alt="" />
+        <img src={item.cover} alt="" />
         <div className="info">
           <div className="user">
             <img src={item.pp} alt="" />
@@ -17,7 +17,10 @@ const GigCard = ({ item }) => {
           <p>{item.desc}</p>
           <div className="star">
             <img src={images.star} alt="star" />
-            <span>{item.star}</span>
+            <span>
+              {!isNaN(Math.round(item.totalStars / item.starNumber)) &&
+                Math.round(item.totalStars / item.starNumber)}
+            </span>
           </div>
         </div>
 
