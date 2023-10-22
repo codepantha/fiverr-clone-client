@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { React, useEffect, useRef, useState } from 'react';
 
 import './Gigs.scss';
 import images from '../../constants/images';
@@ -41,10 +41,11 @@ const Gigs = () => {
   return (
     <div className="gigs">
       <div className="container">
-        <span className="breadcrumbs">FIVERR > GRAPHICS & DESIGN</span>
+        <span className="breadcrumbs">GigHouse {'>'} GRAPHICS & DESIGN</span>
         <h1>AI Artists</h1>
         <p>
-          Explore the boundaries of art and technology with Fiverr's AI artists
+          Explore the boundaries of art and technology with GigHouse&apos;s AI
+          artists
         </p>
         <div className="menu">
           <div className="left">
@@ -66,7 +67,7 @@ const Gigs = () => {
                 ) : (
                   <span onClick={() => reSort('sales')}>Best Selling</span>
                 )}
-                <span onClick={() => reSort("sales")}>Popular</span>
+                <span onClick={() => reSort('sales')}>Popular</span>
               </div>
             )}
           </div>

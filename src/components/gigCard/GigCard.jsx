@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const GigCard = ({ item }) => {
   return (
-    <Link to="/gigs/123" className="link">
+    <Link to={`/gigs/${item._id}`} className="link">
       <div className="gigCard">
         <img src={item.cover} alt="" />
         <div className="info">

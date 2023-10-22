@@ -44,13 +44,13 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
           <Link className="link" to="/">
-            <span className="text">Fiverr</span>
+            <span className="text">GigHouse</span>
           </Link>
           <span className="dot">.</span>
         </div>
 
         <ul className="links">
-          <li>Fiverr Business</li>
+          <li>GigHouse Business</li>
           <li>Explore</li>
           <li>English</li>
           {!currentUser && (
