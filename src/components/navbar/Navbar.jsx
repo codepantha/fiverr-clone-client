@@ -31,9 +31,9 @@ const Navbar = () => {
       localStorage.setItem('currentUser', null);
       navigate('/');
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   const { pathname } = useLocation();
 
@@ -44,20 +44,26 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
           <Link className="link" to="/">
-            <span className="text">Fiverr</span>
+            <span className="text">GigHouse</span>
           </Link>
           <span className="dot">.</span>
         </div>
 
         <ul className="links">
-          <li>Fiverr Business</li>
+          <li>GigHouse Business</li>
           <li>Explore</li>
           <li>English</li>
-          <li>Sign in</li>
+          {!currentUser && (
+            <Link className="link" to="/login">
+              <li>Sign in</li>
+            </Link>
+          )}
           {!currentUser?.isSeller && <li>Become a Seller</li>}
           {!currentUser && (
             <li>
-              <button>Join</button>
+              <Link className="link" to="/register">
+                <button>Join</button>
+              </Link>
             </li>
           )}
           {currentUser && (

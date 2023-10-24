@@ -1,5 +1,10 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery
+} from '@tanstack/react-query';
 
 import './index.scss';
 import Navbar from './components/navbar/Navbar';
@@ -18,12 +23,16 @@ import {
 } from './pages';
 
 function App() {
+  const queryClient = new QueryClient();
+  
   const Layout = () => {
     return (
       <div className="app">
-        <Navbar />
-        <Outlet />
-        <Footer />
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </QueryClientProvider>
       </div>
     );
   };
