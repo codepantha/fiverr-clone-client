@@ -1,53 +1,57 @@
-import React from 'react'
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 
-import './Review.scss';
-import images from '../../constants/images';
+import axiosRequest from "../../utils/axiosRequest";
+import "./Review.scss";
+import images from '../../constants/images'
 
-const Review = () => {
+const Review = ({ review }) => {
+  const { isLoading, error, data } = useQuery(
+    {
+      queryKey: [review.userId],
+      queryFn: () =>
+        axiosRequest.get(`/users/${review.userId}`).then((res) => {
+          return res.data;
+        }),
+    },
+  );
+
+
   return (
     <div className="review">
+      {isLoading ? (
+        "loading"
+      ) : error ? (
+        "error"
+      ) : (
         <div className="user">
-          <img
-            className="pp"
-            src="https://images.pexels.com/photos/839586/pexels-photo-839586.jpeg?auto=compress&cs=tinysrgb&w=1600"
-            alt=""
-          />
+          <img className="pp" src={data.img || images.avatar} alt="" />
           <div className="info">
-            <span>Garner David</span>
+            <span>{data.username}</span>
             <div className="country">
-              <img
-                src="https://GigHouse-dev-res.cloudinary.com/general_assets/flags/1f1fa-1f1f8.png"
-                alt=""
-              />
-              <span>United States</span>
+              <span>{data.country}</span>
             </div>
           </div>
         </div>
-        <div className="stars">
-          <img src={images.star} alt="star" />
-          <img src={images.star} alt="star" />
-          <img src={images.star} alt="star" />
-          <img src={images.star} alt="star" />
-          <img src={images.star} alt="star" />
-          <span>5</span>
-        </div>
-        <p>
-          I just want to say that art_with_ai was the first, and after this, the
-          only artist Ill be using on GigHouse. Communication was amazing, each
-          and every day he sent me images that I was free to request changes to.
-          They listened, understood, and delivered above and beyond my
-          expectations. I absolutely recommend this gig, and know already that
-          Ill be using it again very very soon
-        </p>
-        <div className="helpful">
-          <span>Helpful?</span>
-          <img src={images.like} alt="" />
-          <span>Yes</span>
-          <img src={images.dislike} alt="" />
-          <span>No</span>
-        </div>
+      )}
+      <div className="stars">
+        {Array(review.star)
+          .fill()
+          .map((item, i) => (
+            <img src={images.star} alt="" key={i} />
+          ))}
+        <span>{review.star}</span>
       </div>
-  )
-}
+      <p>{review.desc}</p>
+      <div className="helpful">
+        <span>Helpful?</span>
+        <img src="/img/like.png" alt="" />
+        <span>Yes</span>
+        <img src="/img/dislike.png" alt="" />
+        <span>No</span>
+      </div>
+    </div>
+  );
+};
 
-export default Review
+export default Review;
