@@ -14,8 +14,6 @@ const Orders = () => {
     queryFn: () => axiosRequest.get('/orders').then((res) => res.data)
   });
 
-  console.log({ data });
-
   return (
     <div className="orders">
       <div className="container">
