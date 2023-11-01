@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Orders.scss';
 import images from '../../constants/images';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,29 @@ const Orders = () => {
     queryKey: ['orders'],
     queryFn: () => axiosRequest.get('/orders').then((res) => res.data)
   });
+
+  const navigate = useNavigate();
+
+  const handleContact = async (order) => {
+    console.log(order.buyerId, 'BUYER')
+    console.log(order.sellerId, 'SELLER')
+    const { buyerId, sellerId } = order;
+    try {
+      const res = await axiosRequest.get(`/conversations/single?buyerId=${buyerId}&sellerId=${sellerId}`)
+      console.log(res.status)
+      if (res.status === 200)
+        navigate(`/messages/${res.data[0]._id}`)
+    } catch (err) {
+      if (err.response.status === 404) {
+        const res = await axiosRequest.post('/conversations', {
+          to: currentUser.isSeller ? order.buyerId : order.sellerId
+        })
+        console.log(res.status)
+        if (res.status === 201)
+          navigate(`/messages/${res.data[0]._id}`)
+      }
+    }
+  }
 
   return (
     <div className="orders">
@@ -42,7 +65,7 @@ const Orders = () => {
                 {item.price}
                 </td>
                 <td>
-                  <img className="message" src={images.message} alt="" />
+                  <img className="message" src={images.message} alt="message" onClick={() => handleContact(item)} />
                 </td>
               </tr>
             ))}

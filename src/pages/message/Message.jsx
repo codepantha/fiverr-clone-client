@@ -20,17 +20,19 @@ const Message = () => {
       }),
   });
 
-  const mutation = useMutation({
+  const { mutate, isLoading: postIsLoading } = useMutation({
     mutationFn: (message) => {
       return axiosRequest.post(`/messages`, message);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["messages"]);
+      // Set postIsLoading to false when the message is sent successfully
+      mutate(false)
     },
   });
 
   const handleSubmit = () => {
-    mutation.mutate({
+    mutate({
       conversationId,
       desc: msgRef.current.value
     });
@@ -58,6 +60,7 @@ const Message = () => {
                 <p>{m.desc}</p>
               </div>
             ))}
+            {postIsLoading && 'Sending...'}
           </div>
         )}
         <hr />
