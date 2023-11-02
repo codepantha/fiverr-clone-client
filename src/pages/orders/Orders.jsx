@@ -24,7 +24,7 @@ const Orders = () => {
       const res = await axiosRequest.get(`/conversations/single?buyerId=${buyerId}&sellerId=${sellerId}`)
       console.log(res.status)
       if (res.status === 200)
-        navigate(`/messages/${res.data[0]._id}`)
+        navigate(`/messages/${res.data._id}`)
     } catch (err) {
       if (err.response.status === 404) {
         const res = await axiosRequest.post('/conversations', {

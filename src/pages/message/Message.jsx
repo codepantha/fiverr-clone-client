@@ -60,7 +60,6 @@ const Message = () => {
                 <p>{m.desc}</p>
               </div>
             ))}
-            {postIsLoading && 'Sending...'}
           </div>
         )}
         <hr />
