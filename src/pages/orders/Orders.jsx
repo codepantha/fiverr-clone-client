@@ -17,12 +17,9 @@ const Orders = () => {
   const navigate = useNavigate();
 
   const handleContact = async (order) => {
-    console.log(order.buyerId, 'BUYER')
-    console.log(order.sellerId, 'SELLER')
     const { buyerId, sellerId } = order;
     try {
       const res = await axiosRequest.get(`/conversations/single?buyerId=${buyerId}&sellerId=${sellerId}`)
-      console.log(res.status)
       if (res.status === 200)
         navigate(`/messages/${res.data._id}`)
     } catch (err) {
@@ -30,7 +27,6 @@ const Orders = () => {
         const res = await axiosRequest.post('/conversations', {
           to: currentUser.isSeller ? order.buyerId : order.sellerId
         })
-        console.log(res.status)
         if (res.status === 201)
           navigate(`/messages/${res.data[0]._id}`)
       }
