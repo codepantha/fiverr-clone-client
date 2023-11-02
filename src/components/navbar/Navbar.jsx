@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.scss';
 import images from '../../constants/images';
 import axiosRequest from '../../utils/axiosRequest';
+import useCurrentUser from '../../hooks/userLoggedIn';
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
@@ -37,7 +38,7 @@ const Navbar = () => {
 
   const { pathname } = useLocation();
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const currentUser = useCurrentUser();
 
   return (
     <nav className={isActive || pathname !== '/' ? 'navbar active' : 'navbar'}>

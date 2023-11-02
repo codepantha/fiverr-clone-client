@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+
 import './Orders.scss';
 import images from '../../constants/images';
-import { useQuery } from '@tanstack/react-query';
 import axiosRequest from '../../utils/axiosRequest';
+import useCurrentUser from '../../hooks/userLoggedIn';
 
 const Orders = () => {
-  const currentUser =
-    JSON.stringify(localStorage.getItem('currentUser')) || null;
+  const currentUser = useCurrentUser();
 
   const { isLoading, data, error } = useQuery({
     queryKey: ['orders'],
@@ -19,19 +20,19 @@ const Orders = () => {
   const handleContact = async (order) => {
     const { buyerId, sellerId } = order;
     try {
-      const res = await axiosRequest.get(`/conversations/single?buyerId=${buyerId}&sellerId=${sellerId}`)
-      if (res.status === 200)
-        navigate(`/messages/${res.data._id}`)
+      const res = await axiosRequest.get(
+        `/conversations/single?buyerId=${buyerId}&sellerId=${sellerId}`
+      );
+      if (res.status === 200) navigate(`/messages/${res.data._id}`);
     } catch (err) {
       if (err.response.status === 404) {
         const res = await axiosRequest.post('/conversations', {
           to: currentUser.isSeller ? order.buyerId : order.sellerId
-        })
-        if (res.status === 201)
-          navigate(`/messages/${res.data[0]._id}`)
+        });
+        if (res.status === 201) navigate(`/messages/${res.data[0]._id}`);
       }
     }
-  }
+  };
 
   return (
     <div className="orders">
@@ -57,11 +58,14 @@ const Orders = () => {
                   <img className="image" src={item.img} alt="" />
                 </td>
                 <td>{item.title}</td>
+                <td>{item.price}</td>
                 <td>
-                {item.price}
-                </td>
-                <td>
-                  <img className="message" src={images.message} alt="message" onClick={() => handleContact(item)} />
+                  <img
+                    className="message"
+                    src={images.message}
+                    alt="message"
+                    onClick={() => handleContact(item)}
+                  />
                 </td>
               </tr>
             ))}

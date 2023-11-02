@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import './Message.scss';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosRequest from '../../utils/axiosRequest';
+import useCurrentUser from '../../hooks/userLoggedIn';
 
 const Message = () => {
   const queryClient = useQueryClient();
@@ -10,7 +11,7 @@ const Message = () => {
 
   const { id: conversationId } = useParams();
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser')) || null
+  const currentUser = useCurrentUser();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["messages"],

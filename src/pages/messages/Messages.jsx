@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Messages.scss';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 import axiosRequest from '../../utils/axiosRequest';
 import { formatDate } from '../../utils/helper';
+import useCurrentUser from '../../hooks/userLoggedIn';
+import './Messages.scss';
 
 const Messages = () => {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+  const currentUser = useCurrentUser();
 
   const queryClient = useQueryClient();
 
