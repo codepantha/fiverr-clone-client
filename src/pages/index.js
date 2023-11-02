@@ -8,3 +8,4 @@ export { default as Register } from './register/Register';
 export { default as Messages } from './messages/Messages';
 export { default as Message } from './message/Message';
 export { default as Orders } from './orders/Orders';
+export { default as Pay } from './pay/Pay';

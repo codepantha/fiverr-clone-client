@@ -19,8 +19,10 @@ import {
   Messages,
   MyGigs,
   Orders,
-  Register
+  Register,
+  Pay
 } from './pages';
+import Success from './pages/success/Success';
 
 function App() {
   const queryClient = new QueryClient();
@@ -73,6 +75,14 @@ function App() {
         {
           path: '/gigs/:id',
           element: <Gig />
+        },
+        {
+          path: '/pay/:id',
+          element: <Pay />
+        },
+        {
+          path: '/success',
+          element: <Success />
         },
         {
           path: '/register',

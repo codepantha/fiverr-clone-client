@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Slider } from 'infinite-react-carousel/lib';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import './Gig.scss';
@@ -140,42 +140,33 @@ const Gig = () => {
           </div>
           <div className="right">
             <div className="price">
-              <h3>1 AI generated image</h3>
-              <h2>$ 59.99</h2>
+              <h3>{data.shortTitle}</h3>
+              <h2>$ {data.price}</h2>
             </div>
             <p>
-              I will create a unique high quality AI generated image based on a
-              description that you give me
+              {data.shortDesc}
             </p>
             <div className="details">
               <div className="item">
                 <img src={images.clock} alt="" />
-                <span>2 Days Delivery</span>
+                <span>{data.deliveryDate} Days Delivery</span>
               </div>
               <div className="item">
                 <img src={images.recycle} alt="" />
-                <span>3 Revisions</span>
+                <span>{data.revisionNumber} Revisions</span>
               </div>
             </div>
             <div className="features">
-              <div className="item">
+            {data.features.map((feature) => (
+              <div key={feature._id} className="item">
                 <img src={images.greencheck} alt="" />
-                <span>Prompt writing</span>
+                <span>{feature}</span>
               </div>
-              <div className="item">
-                <img src={images.greencheck} alt="" />
-                <span>Artwork delivery</span>
-              </div>
-              <div className="item">
-                <img src={images.greencheck} alt="" />
-                <span>Image upscaling</span>
-              </div>
-              <div className="item">
-                <img src={images.greencheck} alt="" />
-                <span>Additional design</span>
-              </div>
+            ))}
             </div>
-            <button>Continue</button>
+            <Link to={`/pay/${id}`}>
+              <button>Continue</button>
+            </Link>
           </div>
         </div>
       )}
