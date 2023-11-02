@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Featured.scss';
 import images from '../../constants/images';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Featured = () => {
   const [input, setInput] = useState('');
@@ -26,16 +26,16 @@ const Featured = () => {
           <ul className="popular list-none">
             <li>Popular:</li>
             <li>
-              <button>Web Design</button>
+              <Link to={`/gigs?cat=web`}>Web Design</Link>
             </li>
             <li>
-              <button>Wordpress</button>
+              <Link to={`/gigs?cat=web`}>Wordpress</Link>
             </li>
             <li>
-              <button>Logo Design</button>
+              <Link to={`/gigs?cat=design`}>Logo Design</Link>
             </li>
             <li>
-              <button>AI Services</button>
+              <Link to={`/gigs?cat=content`}>AI Services</Link>
             </li>
           </ul>
         </div>
