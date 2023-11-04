@@ -4,11 +4,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import './MyGigs.scss';
 import images from '../../constants/images';
-import useCurrentUser from '../../hooks/userLoggedIn';
 import axiosRequest from '../../utils/axiosRequest';
 
 function MyGigs() {
-  const currentUser = useCurrentUser();
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   const queryClient = useQueryClient();
 
