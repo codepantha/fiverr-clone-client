@@ -37,6 +37,9 @@ const Featured = () => {
             <li>
               <Link to={`/gigs?cat=content`}>AI Services</Link>
             </li>
+            <li>
+              <Link to="/gigs">All Gigs</Link>
+            </li>
           </ul>
         </div>
         <div className="right">
