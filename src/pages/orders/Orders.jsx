@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import './Orders.scss';
 import images from '../../constants/images';
 import axiosRequest from '../../utils/axiosRequest';
-import useCurrentUser from '../../hooks/userLoggedIn';
 
 const Orders = () => {
-  const currentUser = useCurrentUser();
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   const { isLoading, data, error } = useQuery({
     queryKey: ['orders'],
@@ -29,7 +28,7 @@ const Orders = () => {
         const res = await axiosRequest.post('/conversations', {
           to: currentUser.isSeller ? order.buyerId : order.sellerId
         });
-        if (res.status === 201) navigate(`/messages/${res.data[0]._id}`);
+        if (res.status === 201) navigate(`/messages/${res.data._id}`);
       }
     }
   };
