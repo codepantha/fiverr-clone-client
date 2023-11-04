@@ -1,5 +1,7 @@
+const user = JSON.parse(localStorage.getItem('current_user'))
+
 export const INITIAL_STATE = {
-  userId: JSON.parse(localStorage.getItem('currentUser'))._id,
+  userId: user ? user._id : '',
   title: '',
   cat: '',
   cover: '',
