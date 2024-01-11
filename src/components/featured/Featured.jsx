@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Featured.scss';
 import images from '../../constants/images';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Featured = () => {
+  const [input, setInput] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    navigate(`/gigs/?search=${input}`)
+  }
+
   return (
     <header className="featured">
       <div className="container">
@@ -11,23 +19,26 @@ const Featured = () => {
           <div className="search">
             <div className="searchInput">
               <img src={images.search} alt="" />
-              <input type="text" placeholder="Try 'mobile app development'" />
+              <input type="text" placeholder="Try 'mobile app development'" onChange={(e) => setInput(e.target.value)} />
             </div>
-            <button>Search</button>
+            <button onClick={handleSearch}>Search</button>
           </div>
           <ul className="popular list-none">
             <li>Popular:</li>
             <li>
-              <button>Web Design</button>
+              <Link to={`/gigs?cat=web`}>Web Design</Link>
             </li>
             <li>
-              <button>Wordpress</button>
+              <Link to={`/gigs?cat=web`}>Wordpress</Link>
             </li>
             <li>
-              <button>Logo Design</button>
+              <Link to={`/gigs?cat=design`}>Logo Design</Link>
             </li>
             <li>
-              <button>AI Services</button>
+              <Link to={`/gigs?cat=content`}>AI Services</Link>
+            </li>
+            <li>
+              <Link to="/gigs">All Gigs</Link>
             </li>
           </ul>
         </div>

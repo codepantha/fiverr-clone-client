@@ -20,7 +20,7 @@ const Gigs = () => {
     queryFn: () =>
       axiosRequest
         .get(
-          `/gigs?${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
+          `/gigs${search ? search : '?'}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
         )
         .then((res) => res.data)
   });

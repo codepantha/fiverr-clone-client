@@ -10,7 +10,7 @@ const Message = () => {
 
   const { id: conversationId } = useParams();
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser')) || null
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["messages"],

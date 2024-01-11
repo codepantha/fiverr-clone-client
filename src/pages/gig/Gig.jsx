@@ -40,7 +40,7 @@ const Gig = () => {
         <div className="container">
           <div className="left">
             <span className="breadcrumbs">
-              GigHouse {'>'} Graphics & Design {'>'}
+              GigHouse {'>'} {data.cat} {'>'}
             </span>
             <h1>{data.title}</h1>
 
@@ -52,7 +52,7 @@ const Gig = () => {
               <div className="user">
                 <img
                   className="pp"
-                  src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  src={dataUser.img || images.avatar}
                   alt=""
                 />
                 <span>{dataUser.username}</span>
@@ -69,39 +69,41 @@ const Gig = () => {
               </div>
             )}
             <Slider slidesToShow={1} arrowsScroll={1} className="slider">
+            {data.images?.map((image) => (
               <img
-                src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                key={image}
+                src={image}
                 alt=""
               />
-              <img
-                src="https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <img
-                src="https://images.pexels.com/photos/1054777/pexels-photo-1054777.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
+            ))}
             </Slider>
             <h2>About This Gig</h2>
-            <p>
-              {data.desc}
-            </p>
+            <p>{data.desc}</p>
             <div className="seller">
               <h2>About The Seller</h2>
               <div className="user">
                 <img
-                  src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  src={dataUser?.img || images.avatar}
                   alt=""
                 />
                 <div className="info">
                   <span>Anna Bell</span>
                   <div className="stars">
-                    {Array(Math.round(data.totalStars / data.starNumber))
-                      .fill()
-                      .map((item, idx) => (
+                    {!isNaN(data.totalStars / data.starNumber) ? (
+                      <>
+                        {Array(Math.round(data.totalStars / data.starNumber))
+                        .fill() .map((item, idx) => (
                         <img src={images.star} alt="star" key={idx} />
-                      ))}
-                    <span>{Math.round(data.totalStars / data.starNumber)}</span>
+                        ))}
+                        <span>
+                          {Math.round(data.totalStars / data.starNumber)}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <img src={images.star} alt="star" /> No rating
+                      </>
+                    )}
                   </div>
                   <button>Contact Me</button>
                 </div>
@@ -114,7 +116,9 @@ const Gig = () => {
                   </div>
                   <div className="item">
                     <span className="title">Member since</span>
-                    <span className="desc">{formatDate(dataUser?.createdAt)}</span>
+                    <span className="desc">
+                      {formatDate(dataUser?.createdAt)}
+                    </span>
                   </div>
                   <div className="item">
                     <span className="title">Avg. response time</span>
@@ -130,22 +134,18 @@ const Gig = () => {
                   </div>
                 </div>
                 <hr />
-                <p>{dataUser?.desc}
-                </p>
+                <p>{dataUser?.desc}</p>
               </div>
             </div>
 
             <Reviews gigId={id} />
-
           </div>
           <div className="right">
             <div className="price">
               <h3>{data.shortTitle}</h3>
               <h2>$ {data.price}</h2>
             </div>
-            <p>
-              {data.shortDesc}
-            </p>
+            <p>{data.shortDesc}</p>
             <div className="details">
               <div className="item">
                 <img src={images.clock} alt="" />
@@ -157,12 +157,12 @@ const Gig = () => {
               </div>
             </div>
             <div className="features">
-            {data.features.map((feature) => (
-              <div key={feature._id} className="item">
-                <img src={images.greencheck} alt="" />
-                <span>{feature}</span>
-              </div>
-            ))}
+              {data.features.map((feature) => (
+                <div key={feature._id} className="item">
+                  <img src={images.greencheck} alt="" />
+                  <span>{feature}</span>
+                </div>
+              ))}
             </div>
             <Link to={`/pay/${id}`}>
               <button>Continue</button>

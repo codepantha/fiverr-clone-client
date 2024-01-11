@@ -51,7 +51,7 @@ const Navbar = () => {
 
         <ul className="links">
           <li>GigHouse Business</li>
-          <li>Explore</li>
+          <li><Link className="link" to="/gigs">Explore</Link></li>
           <li>English</li>
           {!currentUser && (
             <Link className="link" to="/login">
